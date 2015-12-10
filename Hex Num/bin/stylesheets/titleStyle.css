@@ -1,0 +1,31 @@
+*{
+	-fx-fill: #55aaff;
+}
+
+.root{
+	-fx-cursor: crosshair;
+}
+.screen{
+	-fx-background-color: #222;
+}
+.hexRow{
+	-fx-alignment: center;
+	-fx-margin-top: 200;
+}
+.hexText{
+	-fx-fill: #fff;
+	-fx-font-weight: bold;
+}
+.hexButton{
+	-fx-opacity: 0;
+}
+.hexShape{
+	-fx-fill: #55aaff;
+	-fx-stroke: #246;
+	-fx-stroke-width: 2;
+}
+.hex:hover .hexShape{
+	-fx-fill: #222;
+	-fx-stroke: #fff;
+	-fx-stroke-width: 2;
+}

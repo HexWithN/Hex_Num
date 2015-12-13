@@ -11,9 +11,18 @@ import javafx.scene.text.Text;
 
 public class HelpScreen extends PlayScreen{
 	String[] content = {
-			"",
-			"",
-			""
+			"Getting started is easy. Once you've started a game, numbers while flash"+
+					" on the screen, then be replaced by Hexagons. To win, you just remember"+
+					" the numbers' positions and tap their respective Hexagons in sequential order.",
+			"This is as much a challenging game as it is a memory trainer. The point of this game"+
+					" is primarily to train your memory reflex. This means your ability to scan"+
+					" something and remember it's information. I could go on a tangent and write a"+
+					" paper about memory and how this game will positively affect it, but the results"+
+					" can speak for themselves.",
+			"There were two reasons this game was made:"+
+					"\n     1. To get acquainted with programming in Java/JavaFX."+
+					"\n     2. I was inspired by an awesome video of a monkey."+
+					"\n        (YouTube 'Amazing Monkey Memory Test')"
 			};
 	public HelpScreen(int width, int height){
 		super(width, height);
@@ -47,6 +56,7 @@ public class HelpScreen extends PlayScreen{
 		Text s2Text = new Text(content[1]);
 		s2Text.setTranslateX(25);
 		s2Text.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
+		s2Text.setWrappingWidth(width-100);
 		
 		Text s3 = new Text("Why was this made?");
 		s3.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
@@ -54,13 +64,15 @@ public class HelpScreen extends PlayScreen{
 		Text s3Text = new Text(content[2]);
 		s3Text.setTranslateX(25);
 		s3Text.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
+		s3Text.setWrappingWidth(width-100);
+		Text emptyText = new Text();
 		
-		helpContent.getChildren().addAll(s1, s1Text, s2, s2Text, s3, s3Text);
+		helpContent.getChildren().addAll(s1, s1Text, s2, s2Text, s3, s3Text, emptyText);
 		ScrollPane contentContainer = new ScrollPane(helpContent);
 		VBox.setVgrow(contentContainer, Priority.ALWAYS);
 		contentContainer.setFitToWidth(true);
 		contentContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
-		contentContainer.getStyleClass().add("screen");
+		contentContainer.getStyleClass().add("helpScreen");
 		
 
 		layers.get(0).getChildren().addAll(titleBox, contentContainer);

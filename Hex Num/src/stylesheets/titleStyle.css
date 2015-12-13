@@ -3,11 +3,14 @@
 }
 
 .root{
+	-fx-background-color: #222;
 	-fx-cursor: crosshair;
 }
-.screen{
+
+.helpScreen *{
 	-fx-background-color: #222;
 }
+
 .hexRow{
 	-fx-alignment: center;
 	-fx-margin-top: 200;

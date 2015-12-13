@@ -53,7 +53,7 @@ public class Main extends Application{
 			public void handle(long currentTime){
 				inGame = window.getScene().equals(gameScene);
 				
-				if(currentTime - startTime > 15*Math.pow(10, 9))
+				if(currentTime - startTime > 40*Math.pow(10, 9))
 					closeProgram();
 			}
 		}.start();

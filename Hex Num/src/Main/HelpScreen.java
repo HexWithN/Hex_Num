@@ -27,44 +27,46 @@ public class HelpScreen extends PlayScreen{
 	public HelpScreen(int width, int height){
 		super(width, height);
 		
-		layers.add(new VBox(50));
+		int hexMargin = width/32;
+		
+		layers.add(new VBox(hexMargin*2));
 		
 		
-		HBox titleBox = new HBox(50);
-		Hexagon backHex = new Hexagon("B", true, false, 50);
+		HBox titleBox = new HBox(hexMargin*2);
+		Hexagon backHex = new Hexagon("B", hexMargin*2);
 			backHex.setOnAction(e -> Main.setScene(Main.titleScene));
 		Text titleText = new Text("Help Screen");
-		titleText.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 75));
+		titleText.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, hexMargin*3));
 		titleBox.getChildren().addAll(backHex, titleText);
-		titleBox.setTranslateX(50);
-		titleBox.setTranslateY(25);
+		titleBox.setTranslateX(hexMargin*2);
+		titleBox.setTranslateY(hexMargin);
 		
 		VBox helpContent = new VBox(10);
-		helpContent.setTranslateX(50);
+		helpContent.setTranslateX(hexMargin*2);
 		
 		Text s1 = new Text("How do I play?");
 		s1.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
 
 		Text s1Text = new Text(content[0]);
-		s1Text.setTranslateX(25);
+		s1Text.setTranslateX(hexMargin);
 		s1Text.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
-		s1Text.setWrappingWidth(width-100);
+		s1Text.setWrappingWidth(width-hexMargin*4);
 		
 		Text s2 = new Text("What is this for?");
 		s2.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
 		
 		Text s2Text = new Text(content[1]);
-		s2Text.setTranslateX(25);
+		s2Text.setTranslateX(hexMargin);
 		s2Text.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
-		s2Text.setWrappingWidth(width-100);
+		s2Text.setWrappingWidth(width-hexMargin*4);
 		
 		Text s3 = new Text("Why was this made?");
 		s3.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
 		
 		Text s3Text = new Text(content[2]);
-		s3Text.setTranslateX(25);
+		s3Text.setTranslateX(hexMargin);
 		s3Text.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 25));
-		s3Text.setWrappingWidth(width-100);
+		s3Text.setWrappingWidth(width-hexMargin*4);
 		Text emptyText = new Text();
 		
 		helpContent.getChildren().addAll(s1, s1Text, s2, s2Text, s3, s3Text, emptyText);

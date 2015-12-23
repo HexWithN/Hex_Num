@@ -27,8 +27,24 @@
 	-fx-stroke: #246;
 	-fx-stroke-width: 2;
 }
+.hex .hexText.hidden{
+	-fx-fill: none;
+}
+.hex.gameHex:hover .hexShape.hidden{
+	-fx-fill: #222;
+	-fx-stroke-width: 0;
+}
+.hex.gameHex .hexShape.hidden{
+	-fx-fill: #222;
+	-fx-stroke-width: 0;
+}
 .hex:hover .hexShape{
 	-fx-fill: #222;
 	-fx-stroke: #fff;
+	-fx-stroke-width: 2;
+}
+.hex.gameHex:hover .hexShape{
+	-fx-fill: #55aaff;
+	-fx-stroke: #246;
 	-fx-stroke-width: 2;
 }

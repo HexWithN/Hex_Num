@@ -10,6 +10,8 @@ public class PlayScreen extends StackPane{
 	int height;
 	
 	double opacity;
+	long lastTime;
+	boolean firstUpdate;
 	protected ArrayList<VBox> layers;
 	
 	public PlayScreen(int width, int height){
@@ -17,7 +19,8 @@ public class PlayScreen extends StackPane{
 		
 		this.width = width;
 		this.height = height;
-		
+		firstUpdate = true;
+		lastTime = System.nanoTime();
 		opacity = 1;
 		layers = new ArrayList<VBox>();
 	}
@@ -26,18 +29,24 @@ public class PlayScreen extends StackPane{
 		for(VBox v: layers)
 			getChildren().add(v);
 		this.getStyleClass().add("screen");
+		lastTime = System.nanoTime();
 	}
 	
-	public void update(){
+	public void update(long currentTime){
+		long timeElapsed = firstUpdate? 0:(long)((currentTime - lastTime)/Math.pow(10, 6));
+		lastTime = currentTime;
+		
 		innerUpdate();
-		customUpdate();
+		customUpdate(timeElapsed);
+		
+		firstUpdate = false;
 	}
 	
 	protected void innerUpdate(){
 		setOpacity(opacity);
 	}
 	
-	protected void customUpdate(){
+	protected void customUpdate(long timeElapsed){
 		
 	}
 }

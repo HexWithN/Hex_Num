@@ -1,7 +1,5 @@
 package Main;
 
-import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -17,8 +15,8 @@ public class Main extends Application{
 	
 	private static Stage window;
 	
-	private ArrayList<Scene> scenes;
 	public static Scene titleScene, gameScene, helpScene;
+	private GameScreen gameScreen;
 	
 	
 	public static void main(String[] args){
@@ -31,14 +29,13 @@ public class Main extends Application{
 		
 		window = primaryStage;
 		window.setTitle(TITLE);
-		
-		scenes = new ArrayList<Scene>();
-
+		gameScreen = new GameScreen(WIDTH, HEIGHT);
 		titleScene = new Scene(new TitleScreen(WIDTH, HEIGHT, TITLE), WIDTH, HEIGHT);
 		titleScene.getStylesheets().add("stylesheets/titleStyle.css");
 		helpScene = new Scene(new HelpScreen(WIDTH, HEIGHT), WIDTH, HEIGHT);
 		helpScene.getStylesheets().add("stylesheets/titleStyle.css");
-		scenes.add(helpScene);
+		gameScene = new Scene(gameScreen, WIDTH, HEIGHT);
+		gameScene.getStylesheets().add("stylesheets/titleStyle.css");
 		
 		window.setScene(titleScene);
 		window.initStyle(StageStyle.UNDECORATED);
@@ -48,12 +45,15 @@ public class Main extends Application{
 		
 		window.show();
 	}
-	public static void update(){
+	private void update(){
 		new AnimationTimer(){
 			public void handle(long currentTime){
 				inGame = window.getScene().equals(gameScene);
 				
-				if(currentTime - startTime > 40*Math.pow(10, 9))
+				if(inGame)
+					gameScreen.update(currentTime);
+				
+				if(currentTime - startTime > 12*Math.pow(10, 9))
 					closeProgram();
 			}
 		}.start();

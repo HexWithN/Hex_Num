@@ -9,7 +9,7 @@ import javafx.scene.text.Text;
 
 public class Hexagon extends StackPane{
 	int radius = 75;
-	boolean hasButton;
+	boolean pressed;
 
 	Text hexText;
 	Polygon hexagonShape;
@@ -22,24 +22,19 @@ public class Hexagon extends StackPane{
 	}
 	public Hexagon(String txt){
 		super();
-		hexText = new Text(txt);
+		this.hexText = new Text(txt);
+		this.radius = 75;
 		init();
 	}
-	public Hexagon(String txt, boolean hasButton, boolean isGameHex){
+	public Hexagon(String txt, int radius){
 		super();
-		this.hasButton = hasButton;
-		hexText = new Text(txt);
+		this.hexText = new Text(txt);
+		this.radius = radius;
 		init();
-	}
-	public Hexagon(String txt, boolean hasButton, boolean isGameHex, int radius){
-		super();
-		this.hasButton = hasButton;
-		hexText = new Text(txt);
-		resetSize(radius);
 	}
 	
 	private void init(){
-		hexText.setStyle("-fx-font-size: " + radius/2 + ";");
+		hexText.setStyle("-fx-font-size: " + this.radius/2 + ";");
 		
 		//Base equation for polygon thanks to "deinst" of StackOverflow
 		hexagonShape = new Polygon();
@@ -58,29 +53,48 @@ public class Hexagon extends StackPane{
 		getChildren().clear();
 		getChildren().addAll(hexagonShape, hexText);
 		
-		if(hasButton){
-			hexButton = new Button("");
-			
-			hexButton.setMinWidth(radius * Math.sin(2 * Math.PI * 1 / 6) -
-						radius * Math.sin(2 * Math.PI * 4 / 6));
-			hexButton.setMinHeight(radius * Math.cos(2 * Math.PI * 0 / 6) -
-					radius * Math.cos(2 * Math.PI * 3 / 6));
-			
-			hexButton.getStyleClass().add("hexButton");
-			getChildren().add(hexButton);
-		}
+		hexButton = new Button("");
+		
+		hexButton.setMinWidth(radius * Math.sin(2 * Math.PI * 1 / 6) -
+					radius * Math.sin(2 * Math.PI * 4 / 6));
+		hexButton.setMinHeight(radius * Math.cos(2 * Math.PI * 0 / 6) -
+				radius * Math.cos(2 * Math.PI * 3 / 6));
+		
+		hexButton.getStyleClass().add("hexButton");
+		getChildren().add(hexButton);
 	}
-	
+
+	public void showText(){
+		if(hexText.getStyleClass().contains("hidden"))
+			hexText.getStyleClass().remove("hidden");
+	}
+	public void showShape(){
+		if(hexagonShape.getStyleClass().contains("hidden"))
+			hexagonShape.getStyleClass().remove("hidden");
+	}
+	public void hideText(){
+		if(!hexText.getStyleClass().contains("hidden"))
+			hexText.getStyleClass().add("hidden");
+	}
+	public void hideShape(){
+		if(!hexagonShape.getStyleClass().contains("hidden"))
+			hexagonShape.getStyleClass().add("hidden");
+	}
+
 	public void setText(String text){
 		hexText.setText(text);
 	}
-	public void resetSize(int size){
+	public void setSize(int size){
 		radius = size;
 		init();
 	}
-	
+	public String getText(){
+		return hexText.getText();
+	}
+	public int getSize(){
+		return radius;
+	}
 	public final void setOnAction(EventHandler<ActionEvent> e){
-		if(hasButton)
-			hexButton.setOnAction(e);
+		hexButton.setOnAction(e);
 	}
 }

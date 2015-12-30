@@ -115,8 +115,8 @@ public class GameScreen extends PlayScreen{
 	}
 	private void onSolved(){
 		difficulty++;
-		numbersShown = Math.min((difficulty+2)/3, 5);
-		flashTime = (float) Math.max(125 + 2.5*difficulty, flashTime*0.9 + 2.5*difficulty);
+		numbersShown = Math.min((difficulty+2)/3, 9);
+		flashTime = (float) Math.max(250 + 5*difficulty, flashTime*0.9 + 5*difficulty);
 		hexGrid.randomizeHexes(numbersShown);
 		for(int i = 0; i < numbersPressed.length; i++)
 			numbersPressed[i] = false;

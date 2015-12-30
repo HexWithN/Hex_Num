@@ -213,16 +213,9 @@ public class HexGrid extends VBox{
 	}
 	private void case4(){
 		long seed = System.nanoTime();
-		int pattern = (int)(Math.random()*5);
+		int pattern = (int)(Math.random()*4);
 		switch(pattern){
 		case 0:
-			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2), shuffledHexagons.get(3));
-			FXCollections.shuffle(row1.getChildren(), new Random(seed));
-			row1.setTranslateX(0);
-			hexRows.getChildren().add(row1);
-			hexRows.setSpacing(0);
-			break;
-		case 1:
 			row1.getChildren().add(shuffledHexagons.get(0));
 			row1.setTranslateX(0);
 			row2.getChildren().addAll(shuffledHexagons.get(1), shuffledHexagons.get(3));
@@ -234,7 +227,7 @@ public class HexGrid extends VBox{
 			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
 			hexRows.setSpacing(0);
 			break;
-		case 2:
+		case 1:
 			row1.getChildren().add(shuffledHexagons.get(0));
 			row1.setTranslateX(0);
 			row2.getChildren().addAll(shuffledHexagons.get(1), shuffledHexagons.get(2), shuffledHexagons.get(3));
@@ -289,17 +282,118 @@ public class HexGrid extends VBox{
 		}
 	}
 	private void case6(){
-		
+		long seed = System.nanoTime();
+		int pattern = (int)(Math.random()*3);
+		switch(pattern){
+		case 0:
+			boolean offset = Math.random() < 0.5;
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(offset ? -hexMargin : 0);
+			row2.getChildren().addAll(shuffledHexagons.get(3), shuffledHexagons.get(4), shuffledHexagons.get(5));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(offset ? hexMargin : 0);
+			hexRows.getChildren().addAll(row1, row2);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(offset ? -hexMargin : hexMargin);
+			break;
+		case 1:
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(2), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(0);
+			row3.getChildren().addAll(shuffledHexagons.get(4), shuffledHexagons.get(5));
+			FXCollections.shuffle(row3.getChildren(), new Random(seed));
+			row3.setTranslateX(0);
+			hexRows.getChildren().addAll(row1, row2, row3);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(hexMargin);
+			break;
+		default:
+			boolean upsideDown = Math.random() < 0.5;
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(3), shuffledHexagons.get(4));
+			row2.setTranslateX(0);
+			row3.getChildren().add(shuffledHexagons.get(5));
+			row3.setTranslateX(0);
+			hexRows.getChildren().addAll(upsideDown ? row1 : row3, row2, upsideDown ? row3 : row1);
+			hexRows.setSpacing(-hexMargin);
+			break;
+		}
 	}
 	private void case7(){
-		
+		long seed = System.nanoTime();
+		int pattern = (int)(Math.random()*2);
+		switch(pattern){
+		case 0:
+			boolean offset = Math.random() < 0.5;
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(offset ? -hexMargin : 0);
+			row2.getChildren().addAll(shuffledHexagons.get(3), shuffledHexagons.get(4), shuffledHexagons.get(5));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(offset ? hexMargin : 0);
+			row3.getChildren().add(shuffledHexagons.get(6));
+			row3.setTranslateX(offset ? -hexMargin : 0);
+			hexRows.getChildren().addAll(row1, row2, row3);
+			if(!offset)
+				FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(offset ? -hexMargin : hexMargin);
+			break;
+		default:
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(2), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(0);
+			row3.getChildren().addAll(shuffledHexagons.get(4), shuffledHexagons.get(5), shuffledHexagons.get(6));
+			FXCollections.shuffle(row3.getChildren(), new Random(seed));
+			row3.setTranslateX(0);
+			hexRows.getChildren().addAll(row1, row2, row3);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(hexMargin);
+			break;
+		}
 	}
 	private void case8(){
-		
+		long seed = System.nanoTime();
+		boolean offset = Math.random() < 0.5;
+		row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2));
+		FXCollections.shuffle(row1.getChildren(), new Random(seed));
+		row1.setTranslateX(offset ? -hexMargin : 0);
+		row2.getChildren().addAll(shuffledHexagons.get(3), shuffledHexagons.get(4), shuffledHexagons.get(5));
+		FXCollections.shuffle(row2.getChildren(), new Random(seed));
+		row2.setTranslateX(offset ? hexMargin : 0);
+		row3.getChildren().addAll(shuffledHexagons.get(6), shuffledHexagons.get(7));
+		FXCollections.shuffle(row3.getChildren(), new Random(seed));
+		row3.setTranslateX(offset ? -hexMargin : 0);
+		hexRows.getChildren().addAll(row1, row2, row3);
+		if(!offset)
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+		hexRows.setSpacing(offset ? -hexMargin : hexMargin);
 	}
 	private void case9(){
-		
+		long seed = System.nanoTime();
+		boolean offset = Math.random() < 0.5;
+		row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2));
+		FXCollections.shuffle(row1.getChildren(), new Random(seed));
+		row1.setTranslateX(offset ? -hexMargin : 0);
+		row2.getChildren().addAll(shuffledHexagons.get(3), shuffledHexagons.get(4), shuffledHexagons.get(5));
+		FXCollections.shuffle(row2.getChildren(), new Random(seed));
+		row2.setTranslateX(offset ? hexMargin : 0);
+		row3.getChildren().addAll(shuffledHexagons.get(6), shuffledHexagons.get(7), shuffledHexagons.get(8));
+		FXCollections.shuffle(row3.getChildren(), new Random(seed));
+		row3.setTranslateX(offset ? -hexMargin : 0);
+		hexRows.getChildren().addAll(row1, row2, row3);
+		if(!offset)
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+		hexRows.setSpacing(offset ? -hexMargin : hexMargin);
 	}
+	
 	public boolean[] getNumbersPressed(){
 		return numbersPressed;
 	}

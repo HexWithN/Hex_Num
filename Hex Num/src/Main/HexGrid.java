@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javafx.collections.FXCollections;
@@ -8,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class HexGrid extends VBox{
+	ArrayList<Hexagon> shuffledHexagons;
 	Hexagon[] hexagons; // The Array of hexagons
 	VBox hexRows; // The ArrayList of rows. Gets final say in what is shown
 	HBox row1, row2, row3; // The rows that will hold the hexagons. Decides what hexes are shown
@@ -28,6 +31,8 @@ public class HexGrid extends VBox{
 		numbersPressed = new boolean[9];
 		for(int i = 0; i < numbersPressed.length; i++)
 			numbersPressed[i] = false;
+
+		shuffledHexagons = new ArrayList<Hexagon>();
 		
 		hexagons = new Hexagon[9];
 		for(int i = 0; i < 9; i++){
@@ -75,12 +80,32 @@ public class HexGrid extends VBox{
 		for(Hexagon h:hexagons)
 			h.showShape();
 	}
-	
+	public void resetNumbersPressed(){
+		for(int i = 0; i < numbersPressed.length; i++)
+			numbersPressed[i] = false;
+	}
+	public void toggleClass(String cssClass){
+		if(getStyleClass().contains(cssClass))
+			getStyleClass().remove(cssClass);
+		else
+			getStyleClass().add(cssClass);
+	}
+	public void removeClass(String cssClass){
+		if(getStyleClass().contains(cssClass))
+			getStyleClass().remove(cssClass);
+	}
 	public void randomizeHexes(int numHexes){
 		for(Hexagon h:hexagons){
 			h.hideShape();
 			h.showText();
 		}
+		
+		shuffledHexagons.clear();
+		for(int i = 0; i < numHexes; i++)
+			shuffledHexagons.add(hexagons[i]);
+		
+		long seed = System.nanoTime();
+		Collections.shuffle(shuffledHexagons, new Random(seed));
 		
 		hexRows.getChildren().clear();
 		row1.getChildren().clear();
@@ -95,7 +120,7 @@ public class HexGrid extends VBox{
 	public void showPattern(int numHexes){
 		switch(numHexes){
 		case 1:
-			row1.getChildren().add(hexagons[0]);
+			row1.getChildren().add(shuffledHexagons.get(0));
 			hexRows.getChildren().add(row1);
 			break;
 		case 2:
@@ -128,25 +153,26 @@ public class HexGrid extends VBox{
 		int pattern = (int)(Math.random()*3);
 		switch(pattern){
 		case 0:
-			row1.getChildren().addAll(hexagons[0], hexagons[1]);
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1));
 			row1.setTranslateX(0);
 			hexRows.getChildren().add(row1);
-			hexRows.setSpacing(hexMargin*0.5);
+			hexRows.setSpacing(0);
 			break;
 		case 1:
-			row1.getChildren().add(hexagons[0]);
+			row1.getChildren().add(shuffledHexagons.get(0));
 			row1.setTranslateX(0);
-			row2.getChildren().add(hexagons[1]);
+			row2.getChildren().add(shuffledHexagons.get(1));
 			row2.setTranslateX(0);
 			hexRows.getChildren().addAll(row1, row2);
 			hexRows.setSpacing(hexMargin);
 			break;
 		default:
-			row1.getChildren().add(hexagons[0]);
+			row1.getChildren().add(shuffledHexagons.get(0));
 			row1.setTranslateX(hexMargin*2);
-			row2.getChildren().add(hexagons[1]);
+			row2.getChildren().add(shuffledHexagons.get(1));
 			row2.setTranslateX(-hexMargin*2);
 			hexRows.getChildren().addAll(row1, row2);
+			hexRows.setSpacing(-hexMargin);
 			break;
 		}
 	}
@@ -155,30 +181,29 @@ public class HexGrid extends VBox{
 		int pattern = (int)(Math.random()*3);
 		switch(pattern){
 		case 0:
-			row1.getChildren().addAll(hexagons[0], hexagons[1], hexagons[2]);
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2));
 			FXCollections.shuffle(row1.getChildren(), new Random(seed));
 			row1.setTranslateX(0);
-			row1.setSpacing(hexMargin);
 			hexRows.getChildren().add(row1);
 			hexRows.setSpacing(hexMargin);
 			break;
 		case 1:
-			row1.getChildren().add(hexagons[0]);
+			row1.getChildren().add(shuffledHexagons.get(0));
 			row1.setTranslateX(0);
-			row2.getChildren().add(hexagons[1]);
+			row2.getChildren().add(shuffledHexagons.get(1));
 			row2.setTranslateX(0);
-			row3.getChildren().add(hexagons[2]);
+			row3.getChildren().add(shuffledHexagons.get(2));
 			row3.setTranslateX(0);
 			hexRows.getChildren().addAll(row1, row2, row3);
 			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
 			hexRows.setSpacing(hexMargin);
 			break;
 		default:
-			row1.getChildren().add(hexagons[0]);
+			row1.getChildren().add(shuffledHexagons.get(0));
 			row1.setTranslateX(hexMargin*2.5);
-			row2.getChildren().add(hexagons[1]);
+			row2.getChildren().add(shuffledHexagons.get(1));
 			row2.setTranslateX(0);
-			row3.getChildren().add(hexagons[2]);
+			row3.getChildren().add(shuffledHexagons.get(2));
 			row3.setTranslateX(-hexMargin*2.5);
 			hexRows.getChildren().addAll(row1, row2, row3);
 			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
@@ -187,10 +212,81 @@ public class HexGrid extends VBox{
 		}
 	}
 	private void case4(){
-		
+		long seed = System.nanoTime();
+		int pattern = (int)(Math.random()*5);
+		switch(pattern){
+		case 0:
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1), shuffledHexagons.get(2), shuffledHexagons.get(3));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(0);
+			hexRows.getChildren().add(row1);
+			hexRows.setSpacing(0);
+			break;
+		case 1:
+			row1.getChildren().add(shuffledHexagons.get(0));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(1), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(0);
+			row3.getChildren().add(shuffledHexagons.get(2));
+			row3.setTranslateX(0);
+			hexRows.getChildren().addAll(row1, row2, row3);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(0);
+			break;
+		case 2:
+			row1.getChildren().add(shuffledHexagons.get(0));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(1), shuffledHexagons.get(2), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(0);
+			hexRows.getChildren().addAll(row1, row2);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(hexMargin);
+			break;
+		default:
+			boolean offset = Math.random() < 0.5;
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(1));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(offset ? hexMargin*2 : 0);
+			row2.getChildren().addAll(shuffledHexagons.get(2), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(offset ? -hexMargin*2 : 0);
+			hexRows.getChildren().addAll(row1, row2);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(offset ? -hexMargin : hexMargin);
+			break;
+		}
 	}
 	private void case5(){
-		
+		long seed = System.nanoTime();
+		int pattern = (int)(Math.random()*2);
+		switch(pattern){
+		case 0:
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(4));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(1), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(0);
+			row3.getChildren().add(shuffledHexagons.get(2));
+			row3.setTranslateX(0);
+			hexRows.getChildren().addAll(row1, row2, row3);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(0);
+			break;
+		default:
+			row1.getChildren().addAll(shuffledHexagons.get(0), shuffledHexagons.get(4));
+			FXCollections.shuffle(row1.getChildren(), new Random(seed));
+			row1.setTranslateX(0);
+			row2.getChildren().addAll(shuffledHexagons.get(1), shuffledHexagons.get(2), shuffledHexagons.get(3));
+			FXCollections.shuffle(row2.getChildren(), new Random(seed));
+			row2.setTranslateX(0);
+			hexRows.getChildren().addAll(row1, row2);
+			FXCollections.shuffle(hexRows.getChildren(), new Random(seed));
+			hexRows.setSpacing(-hexMargin);
+			break;
+		}
 	}
 	private void case6(){
 		

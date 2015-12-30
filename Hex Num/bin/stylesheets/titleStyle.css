@@ -1,5 +1,6 @@
 *{
-	-fx-fill: #55aaff;
+	myBlue: #55aaff;
+	-fx-fill: myBlue;
 }
 
 .root{
@@ -23,28 +24,52 @@
 	-fx-opacity: 0;
 }
 .hexShape{
-	-fx-fill: #55aaff;
+	-fx-fill: myBlue;
 	-fx-stroke: #246;
-	-fx-stroke-width: 2;
+	-fx-stroke-width: 5;
 }
 .hex .hexText.hidden{
 	-fx-fill: none;
 }
 .hex.gameHex:hover .hexShape.hidden{
 	-fx-fill: #222;
-	-fx-stroke-width: 0;
+	-fx-stroke: #222;
+	-fx-stroke-width: 5;
 }
 .hex.gameHex .hexShape.hidden{
 	-fx-fill: #222;
-	-fx-stroke-width: 0;
+	-fx-stroke: #222;
+	-fx-stroke-width: 5;
 }
 .hex:hover .hexShape{
 	-fx-fill: #222;
 	-fx-stroke: #fff;
-	-fx-stroke-width: 2;
+	-fx-stroke-width: 5;
 }
 .hex.gameHex:hover .hexShape{
-	-fx-fill: #55aaff;
+	-fx-fill: myBlue;
 	-fx-stroke: #246;
-	-fx-stroke-width: 2;
+	-fx-stroke-width: 5;
+}
+.green .hex.gameHex .hexShape{
+	-fx-stroke: #0f0;
+	-fx-stroke-width: 5;
+}
+.green .hex.gameHex .hexShape.hidden{
+	-fx-stroke: #0f0;
+	-fx-stroke-width: 5;
+}
+.green .hex.gameHex .hexText.hidden{
+	-fx-fill: #fff;
+}
+.red .hex.gameHex .hexShape{
+	-fx-stroke: #f00;
+	-fx-stroke-width: 5;
+}
+.red .hex.gameHex .hexShape.hidden{
+	-fx-stroke: #f00;
+	-fx-stroke-width: 5;
+}
+.red .hex.gameHex .hexText.hidden{
+	-fx-fill: #fff;
 }

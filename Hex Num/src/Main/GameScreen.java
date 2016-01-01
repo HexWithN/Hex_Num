@@ -50,6 +50,8 @@ public class GameScreen extends PlayScreen{
 		startTime = 0;
 		blankTime = 500;
 		
+		getStyleClass().add("gameScreen");
+		
 		init();
 	}
 	

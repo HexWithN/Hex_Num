@@ -3,6 +3,8 @@ package Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
@@ -14,6 +16,8 @@ public class Hexagon extends StackPane{
 	Text hexText;
 	Polygon hexagonShape;
 	Button hexButton;
+	Image img;
+	ImageView imgView;
 
 	public Hexagon(){
 		super();
@@ -34,6 +38,13 @@ public class Hexagon extends StackPane{
 	}
 	
 	private void init(){
+		imgView = new ImageView();
+		imgView.getStyleClass().add("hexImage");
+		imgView.setFitWidth(radius);
+		imgView.setPreserveRatio(true);
+		imgView.setSmooth(true);
+		imgView.setCache(true);
+		
 		hexText.setStyle("-fx-font-size: " + this.radius/2 + ";");
 		
 		//Base equation for polygon thanks to "deinst" of StackOverflow
@@ -51,7 +62,7 @@ public class Hexagon extends StackPane{
 		hexText.getStyleClass().add("hexText");
 		hexagonShape.getStyleClass().add("hexShape");
 		getChildren().clear();
-		getChildren().addAll(hexagonShape, hexText);
+		getChildren().addAll(hexagonShape, hexText, imgView);
 		
 		hexButton = new Button("");
 		
@@ -62,6 +73,19 @@ public class Hexagon extends StackPane{
 		
 		hexButton.getStyleClass().add("hexButton");
 		getChildren().add(hexButton);
+	}
+	
+	public void setImage(String imgPath){
+		try{
+			img = new Image(imgPath);
+			imgView.setImage(img);
+		}catch(Exception e){
+			System.out.println("Image probably not found.");
+		}
+	}
+	public void flipImage(boolean horizontal, boolean vertical){
+		imgView.setScaleX(horizontal ? -1f: 1f);
+		imgView.setScaleY(vertical ? -1f: 1f);
 	}
 
 	public void showText(){

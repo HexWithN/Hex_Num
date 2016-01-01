@@ -14,6 +14,8 @@ public class PlayScreen extends StackPane{
 	boolean firstUpdate;
 	protected ArrayList<VBox> layers;
 	
+	VBox brightnessLayer;
+	
 	public PlayScreen(int width, int height){
 		super();
 		
@@ -23,11 +25,17 @@ public class PlayScreen extends StackPane{
 		lastTime = System.nanoTime();
 		opacity = 1;
 		layers = new ArrayList<VBox>();
+		brightnessLayer = new VBox();
 	}
 	
 	protected void init(){
 		for(VBox v: layers)
 			getChildren().add(v);
+		
+		brightnessLayer.setStyle("-fx-background-color: #000;");
+		brightnessLayer.setDisable(true);
+		getChildren().add(brightnessLayer);
+		
 		this.getStyleClass().add("screen");
 		lastTime = System.nanoTime();
 	}
@@ -43,7 +51,7 @@ public class PlayScreen extends StackPane{
 	}
 	
 	protected void innerUpdate(){
-		setOpacity(opacity);
+		brightnessLayer.setOpacity(0.5 * (1 - Main.brightness));
 	}
 	
 	protected void customUpdate(long timeElapsed){

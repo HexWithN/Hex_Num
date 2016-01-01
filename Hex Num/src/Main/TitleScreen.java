@@ -1,5 +1,8 @@
 package Main;
 
+import java.awt.Desktop;
+import java.net.URI;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -29,17 +32,33 @@ public class TitleScreen extends PlayScreen{
 		topHexes.getStyleClass().add("hexRow");
 		Hexagon startHex = new Hexagon("START", hexMargin*3);
 			startHex.setOnAction(e -> Main.setScene(Main.gameScene));
-		Hexagon achievementHex = new Hexagon("ACH.", hexMargin*3);
-		Hexagon websiteHex = new Hexagon("ME!", hexMargin*3);
+		Hexagon achievementHex = new Hexagon("", hexMargin*3);
+			achievementHex.setOnAction(e -> Main.setScene(Main.achievementScene));
+			achievementHex.setImage("Assets/ACHIEVEMENTS.png");
+		Hexagon websiteHex = new Hexagon("", hexMargin*3);
+			websiteHex.setImage("Assets/ME.png");
+			websiteHex.setOnAction(e -> {
+				if(Desktop.isDesktopSupported()){
+					try{
+						Desktop.getDesktop().browse(new URI("www.nqshabazz.me"));
+					}catch (Exception e1){
+						e1.printStackTrace();
+					}
+				}
+			});
 		topHexes.getChildren().addAll(startHex, achievementHex, websiteHex);
 		topHexes.setTranslateX(websiteHex.radius*0.5);
 		
 		HBox bottomHexes = new HBox(hexMargin);
 		bottomHexes.getStyleClass().add("hexRow");
-		Hexagon optionHex = new Hexagon("OPT.", hexMargin*3);
-		Hexagon helpHex = new Hexagon("HELP", hexMargin*3);
+		Hexagon optionHex = new Hexagon("", hexMargin*3);
+			optionHex.setImage("Assets/OPTIONS.png");
+			optionHex.setOnAction(e -> Main.setScene(Main.optionsScene));
+		Hexagon helpHex = new Hexagon("", hexMargin*3);
+			helpHex.setImage("Assets/HELP.png");
 			helpHex.setOnAction(e -> Main.setScene(Main.helpScene));
-		Hexagon exitHex = new Hexagon("EXIT", hexMargin*3);
+		Hexagon exitHex = new Hexagon("", hexMargin*3);
+			exitHex.setImage("Assets/EXIT.png");
 			exitHex.setOnAction(e -> Main.closeProgram());
 		bottomHexes.getChildren().addAll(optionHex, helpHex, exitHex);
 		bottomHexes.setTranslateX(-websiteHex.radius*0.5);

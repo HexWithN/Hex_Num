@@ -31,9 +31,11 @@ public class HelpScreen extends PlayScreen{
 		
 		layers.add(new VBox(hexMargin*2));
 		
-		
 		HBox titleBox = new HBox(hexMargin*2);
-		Hexagon backHex = new Hexagon("B", hexMargin*2);
+		
+		Hexagon backHex = new Hexagon("", hexMargin*2);
+			backHex.setImage("Assets/RIGHT_ARROW.png");
+			backHex.flipImage(true, false);
 			backHex.setOnAction(e -> Main.setScene(Main.titleScene));
 		Text titleText = new Text("Help Screen");
 		titleText.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, hexMargin*3));

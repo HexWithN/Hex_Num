@@ -5,6 +5,9 @@
 
 .root{
 	-fx-background-color: #222;
+}
+
+.gameScreen{
 	-fx-cursor: crosshair;
 }
 

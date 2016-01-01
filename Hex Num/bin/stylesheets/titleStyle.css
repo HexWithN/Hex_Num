@@ -1,14 +1,18 @@
 *{
-	myBlue: #55aaff;
-	-fx-fill: myBlue;
 }
 
 .root{
+	myColor: #55aaff;
 	-fx-background-color: #222;
+	-fx-fill: myColor;
 }
 
 .gameScreen{
 	-fx-cursor: crosshair;
+}
+
+Text{
+	-fx-fill: myColor;
 }
 
 .helpScreen *{
@@ -27,8 +31,8 @@
 	-fx-opacity: 0;
 }
 .hexShape{
-	-fx-fill: myBlue;
-	-fx-stroke: #246;
+	-fx-fill: myColor;
+	-fx-stroke: #444;
 	-fx-stroke-width: 5;
 }
 .hex .hexText.hidden{
@@ -50,8 +54,8 @@
 	-fx-stroke-width: 5;
 }
 .hex.gameHex:hover .hexShape{
-	-fx-fill: myBlue;
-	-fx-stroke: #246;
+	-fx-fill: myColor;
+	-fx-stroke: #444;
 	-fx-stroke-width: 5;
 }
 .green .hex.gameHex .hexShape{

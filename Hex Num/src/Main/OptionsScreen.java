@@ -1,9 +1,12 @@
 package Main;
 
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -11,6 +14,7 @@ import javafx.scene.text.Text;
 public class OptionsScreen extends PlayScreen{
 	Slider brightnessSlider, volumeSlider;
 	CheckBox volumeCheckbox;
+	ColorPicker colorPicker;
 	
 	public OptionsScreen(int width, int height){
 		super(width, height);
@@ -52,7 +56,11 @@ public class OptionsScreen extends PlayScreen{
 		volumeBox.setTranslateX(hexMargin);
 		volumeBox.setMaxWidth(width - hexMargin*4);
 		
-		layers.get(0).getChildren().addAll(titleBox, brightnessBox, volumeBox);
+		colorPicker = new ColorPicker(Color.web("0x55aaffff"));//Main.color));
+		colorPicker.setTranslateX(hexMargin);
+		colorPicker.setMaxWidth(width - hexMargin*4);
+		
+		layers.get(0).getChildren().addAll(titleBox, brightnessBox, volumeBox, colorPicker);
 		init();
 	}
 
@@ -60,5 +68,15 @@ public class OptionsScreen extends PlayScreen{
 		Main.brightness = brightnessSlider.getValue();
 		Main.volumeEnabled = volumeCheckbox.isSelected();
 		Main.volume = volumeSlider.getValue();
+
+		String pickedColor = colorPicker.getValue().toString();
+		pickedColor = "#" + pickedColor.trim().substring(2, pickedColor.length() - 2);
+		if(Main.window.getScene().getStylesheets().size() > 0){
+			for(int i = 0; i < Main.scenes.size(); i++){
+				Node root = Main.scenes.get(i).lookup(".root");
+				root.setStyle("myColor: " + pickedColor + ";");
+			}
+		}
+		Main.color = pickedColor;
 	}
 }

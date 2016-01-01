@@ -7,6 +7,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class AchievementScreen extends PlayScreen{
+	public VBox achievements;
+	
 	public AchievementScreen(int width, int height){
 		super(width, height);
 		
@@ -27,7 +29,15 @@ public class AchievementScreen extends PlayScreen{
 		titleBox.setTranslateX(hexMargin*2);
 		titleBox.setTranslateY(hexMargin);
 		
-		layers.get(0).getChildren().add(titleBox);
+		achievements = new VBox(20);
+		for(int i = 0; i < AchievementTracker.length(); i++){
+		}
+		
+		layers.get(0).getChildren().addAll(titleBox, achievements);
 		init();
+	}
+	
+	protected void customUpdate(){
+		
 	}
 }

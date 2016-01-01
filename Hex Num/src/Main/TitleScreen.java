@@ -2,7 +2,11 @@ package Main;
 
 import java.awt.Desktop;
 import java.net.URI;
+import java.util.Optional;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -10,10 +14,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class TitleScreen extends PlayScreen{
+	Alert alert;
 	
 	public TitleScreen(int width, int height, String title){
 		super(width, height);
 
+		alert = new Alert(AlertType.CONFIRMATION, "This will open a link to my website, okay?");
+		alert.setHeaderText(null);
+		
 		int hexMargin = width/32;
 		
 		layers.add(new VBox(hexMargin*2));
@@ -38,13 +46,16 @@ public class TitleScreen extends PlayScreen{
 		Hexagon websiteHex = new Hexagon("", hexMargin*3);
 			websiteHex.setImage("Assets/ME.png");
 			websiteHex.setOnAction(e -> {
-				if(Desktop.isDesktopSupported()){
-					try{
-						Desktop.getDesktop().browse(new URI("www.nqshabazz.me"));
-					}catch (Exception e1){
-						e1.printStackTrace();
+				Optional<ButtonType> result = alert.showAndWait();
+				 if (result.isPresent() && result.get() == ButtonType.OK) {
+					if(Desktop.isDesktopSupported()){
+						try{
+							Desktop.getDesktop().browse(new URI("www.nqshabazz.me"));
+						}catch (Exception e1){
+							e1.printStackTrace();
+						}
 					}
-				}
+				 }
 			});
 		topHexes.getChildren().addAll(startHex, achievementHex, websiteHex);
 		topHexes.setTranslateX(websiteHex.radius*0.5);
